@@ -25,3 +25,5 @@ folder should contain the entire documentation, images and source code.
 this node based on this documentation.
 
 - Include images in your documentation
+
+- **Mask sensitive information** like passwords, tokens, access keys, EUIs, in code and documentation!
