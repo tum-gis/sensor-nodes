@@ -25,7 +25,7 @@ list at least all libraries used in the sketch.
 
 The code/sketch added to this folder should be well-formatted and well-described using comments. Very important/complex code snippets should be explained here using code boxes.
 
-```arduino
+```c++
 #include <DHT.h>
 
 void setup() {
