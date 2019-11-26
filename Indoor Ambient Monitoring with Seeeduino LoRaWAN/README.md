@@ -73,7 +73,7 @@ HM330X sensor;
 
 ## Services
 
-This node is connected using the TheThingsNetwork service. Further, a node-red work bench is used to forward this collected data from the TTN platform to the OGC Sensor Things API configured on the FROST Server. The node-red workbench that was used for forwarding the data is available at [Node Red flow for Indoor Ambience Monitoring](Indoor Ambient Monitoring with Seeeduino LoRaWAN/Node_flow_Indoor.json). To use this node-red-workbench go to the node-red platform https://iot.gis.bgu.tum.de:1885/, login with the credentials, go to the options and select Import>Clipboard. Select the downloaded .json file with the given option and click on import. Make necessary changes and deploy the flow.
+This node is connected using the TheThingsNetwork service. Further, a node-red work bench is used to forward this collected data from the TTN platform to the OGC Sensor Things API configured on the FROST Server. The node-red workbench that was used for forwarding the data is available at [Node Red flow for Indoor Ambience Monitoring](./Node_flow_Indoor.json). To use this node-red-workbench go to the node-red platform https://iot.gis.bgu.tum.de:1885/, login with the credentials, go to the options and select Import>Clipboard. Select the downloaded .json file with the given option and click on import. Make necessary changes and deploy the flow.
 
 Datastreams setup for this sensor node on the FROST server can be seen at:
 http://iot.gis.bgu.tum.de:8081/FROST-Server-gi3/v1.0/Things(21)/Datastreams
@@ -86,4 +86,4 @@ https://iot.gis.bgu.tum.de:3050/d/jDJ1li1Wz/indoor-ambient-monitoring-with-seeed
 ## References
 
 * [Arduino_Sketch_Indoor.ino](Arduino_Sketch_Indoor/Arduino_Sketch_Indoor.ino)
-* [Node Red flow for Indoor Ambience Monitoring](Indoor Ambient Monitoring with Seeeduino LoRaWAN/Node_flow_Indoor.json)
+* [Node Red flow for Indoor Ambience Monitoring](./Node_flow_Indoor.json)
