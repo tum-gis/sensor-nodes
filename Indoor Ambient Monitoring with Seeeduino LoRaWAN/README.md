@@ -1,6 +1,6 @@
 ﻿# Indoor Ambient Monitoring with Seeeduino LoRaWAN
 
-This sensor node is made to showcase a use-case of LoRaWAN for indoor ambience monitoring. For achieving this a multitude of sensors were used which can monitor the quality of the ambience. In this we measure parameters such as temperature, humidity, air pressure, air quality, CO2, loudness, gas, PM2.5, and light. 
+This sensor node is made to showcase a use-case of LoRaWAN for indoor ambience monitoring. For achieving this a multitude of sensors were used which can monitor the quality of the ambience. In this example we measure parameters such as temperature, humidity, air pressure, air quality, CO2, loudness, gas, PM2.5, and light. 
 
 ![Hardware setup](hardware-setup.jpg)
 
@@ -8,18 +8,17 @@ This sensor node is made to showcase a use-case of LoRaWAN for indoor ambience m
 
 To realize the objective, following components were used:
 
-- Seeeduino LoRaWAN board V4.2
-- Grove Base Shield Arduino V2
-- Grove - Air Quality Sensor
-- Grove - Loudness Sensor
-- Grove - Digital Light Sensor
-- Grove - BME680 Sensor
-- Grove - Laser PM2.5 Sensor (HM3301)
-- MHZ19B CO2 Sensor
+- [Seeeduino LoRaWAN board V4.2](http://wiki.seeedstudio.com/Seeeduino_LoRAWAN/) - [Grove Base Shield Arduino V2](https://www.seeedstudio.com/Base-Shield-V2.html)
+- [Grove - Air Quality Sensor](http://wiki.seeedstudio.com/Grove-Air_Quality_Sensor_v1.3/)
+- [Grove - Loudness Sensor](http://wiki.seeedstudio.com/Grove-Loudness_Sensor/)
+- [Grove - Digital Light Sensor](http://wiki.seeedstudio.com/Grove-Digital_Light_Sensor/)
+- [Grove - BME680 Sensor](http://wiki.seeedstudio.com/Grove-Temperature_Humidity_Pressure_Gas_Sensor_BME680/)
+- [Grove - Laser PM2.5 Sensor (HM3301)](http://wiki.seeedstudio.com/Grove-Laser_PM2.5_Sensor-HM3301/)
+- [MHZ19B CO2 Sensor](https://www.winsen-sensor.com/d/files/infrared-gas-sensor/mh-z19b-co2-ver1_0.pdf)
 - Micro USB Charger
 
 ### Wiring setup
-First of all, the grove base shield was connected over the Seeeduino board. The board was set at the 5V mode. Then, the sensor connections were made as following:
+First of all, the grove base shield was connected over the Seeeduino LoRaWAN board. The board was set at the 5V mode. Then, the sensor connections were made using the connector cables as following:
 
 - Loudness Sensor – Analog Pin A0
 - PM 2.5 Sensor – I2C pin
@@ -28,9 +27,11 @@ First of all, the grove base shield was connected over the Seeeduino board. The 
 - MHZ19B CO2 Sensor – Digital Pin D4
 - Air Quality Sensor - A2
 
+Apart from this, there is no need of any other wiring in this case.
+
 ![Hardware](hardware.jpg)
 
-Once all these connection were made, the board is connected with a computer using a USB cable. Further, software part needs to be followed:
+Once all these connection were made, the board is connected with a computer using a USB cable. Further, steps of software part needs to be followed:
 
 ## Software
 
