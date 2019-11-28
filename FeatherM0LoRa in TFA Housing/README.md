@@ -25,7 +25,7 @@ Also, as the final hardware setup with antenna couldn’t completely fit into th
 
 First of all, the Feather M0 LoRa board was prepared by soldering the board with the provided grid of pins. Then the board is connected with the sensors using a breadboard. The sensor connections were made using the connector cables as following:
 
-DHT-22 Sensor connections:
+#### DHT-22 Sensor connections:
 - Feather 3V to DHT22 pin 1
 - Feather GND to DHT22 pin 4
 - Feather pin 12 to DHT22 pin 2
@@ -33,13 +33,13 @@ DHT-22 Sensor connections:
 
 ![Wiring with DHT-22 Sensor](feather_wiring_hero.png)
 
-Grove-Barometer Sensor connections:
+#### Grove-Barometer Sensor connections:
 - Feather SCL to Barometer Sensor pin 1 (yellow)  
 - Feather SDA to Barometer Sensor pin 2 (white) 
 - Feather 3V to Barometer Sensor pin 3 (red)
 - Feather GND to Barometer Sensor pin 4 (black)
 
-Apart from this, Feather pin 6 should be wired with Feather pin io1.
+Apart from this, Feather pin 6 should be permanently wired with Feather pin io1.
 
 To ensure the durable connections, smaller jumper wires were used on the breadboard instead of longer connecting cables. Sensors and cables were also supported with an insulating duct tape. Final hardware setup looked as following:
 
@@ -51,14 +51,15 @@ Once all these connection were made, the board is connected with a computer usin
 
 To create this node, we use Arduino IDE for setting up the Feather M0 LoRa module. First, install the [Feather M0 LoRa](https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/setup) board to your Arduino IDE and select the correct port. Then following libraries needs to be installed before compiling the code:
 
-- [lmic.h](https://github.com/matthijskooijman/arduino-lmic) for configuring board
+- [lmic.h](https://github.com/matthijskooijman/arduino-lmic/archive/master.zip) for implementing LoRaWAN on Arduino hardware.
 - [hal/hal.h] bundled with lmic library.
-- [SPI.h](https://github.com/esp8266/Arduino/tree/master/libraries/SPI) for 
-- [Adafruit_SleepyDog.h](https://github.com/adafruit/Adafruit_SleepyDog) for controlling internal clock for time. 
+- [Adafruit_SleepyDog.h](https://github.com/adafruit/Adafruit_SleepyDog) for controlling low power sleep mode. 
 - [Wire.h](https://github.com/esp8266/Arduino/tree/master/libraries/Wire) to communicate with I2C devices.
-- [BMP085.h](https://github.com/PaulStoffregen/SoftwareSerial) for Serial Communication.
-- [DHT.h]() for reading DHT-22 sensor.
+- [BMP085.h](https://raw.githubusercontent.com/SeeedDocument/Grove-Barometer_Sensor/master/res/Barometer_Sensor.zip) for Barometer sensor.
+- [DHT.h](https://github.com/Seeed-Studio/Grove_Temperature_And_Humidity_Sensor) for reading DHT-22 sensor.
 - [CayenneLPP.h](https://github.com/ElectronicCats/CayenneLPP/archive/master.zip) for Cayenne Protocol.
+
+Apart from this, SPI.h library is also used for communicating with serial peripheral interface but it is already inbuilt in Arduino IDE and is not required to be separately installed.
 
 Now download and run the [Arduino_Sketch_TFA.ino](Arduino_Sketch_TFA/Arduino_Sketch_TFA.ino) file in the Arduino IDE. This code was created by merging the example code of both the sensors and the ttn-otaa example from the lmic library. Some required changes were made while merging the example codes. The user should change the network session key, app session key and device address in the code before compiling. These keys can be obtained from the TTN, SWM or other service providers.
 

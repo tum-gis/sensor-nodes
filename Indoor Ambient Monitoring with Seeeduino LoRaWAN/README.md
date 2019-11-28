@@ -39,7 +39,7 @@ To create this node, we use Arduino IDE for setting up the Seeeduino LoRaWAN dev
 
 - [Digital_Light_TSL2561.h](https://github.com/Seeed-Studio/Grove_Digital_Light_Sensor/archive/master.zip) for Digital Light Sensor
 - [Air_Quality_Sensor.h](https://github.com/Seeed-Studio/Grove_Air_quality_Sensor) for Air Quality Sensor 
-- [Seeed_bme680.h](http://wiki.seeedstudio.com/How_to_install_Arduino_Library) for BME680 Sensor
+- [Seeed_bme680.h](https://github.com/Seeed-Studio/Seeed_BME680) for BME680 Sensor
 - [Seeed_HM330X.h](https://github.com/Seeed-Studio/Seeed_PM2_5_sensor_HM3301) for Laser PM2.5 Sensor 
 - [MHZ19.h](https://github.com/strange-v/MHZ19) for MHZ19B CO2 Sensor
 - [Wire.h](https://github.com/esp8266/Arduino/tree/master/libraries/Wire) to communicate with I2C devices
@@ -71,6 +71,7 @@ int loudness;
 
 HM330X sensor;
 ```
+The user should change the network session key, app session key and device address in the code before compiling. These keys can be obtained from the TTN, SWM or any other service providers.
 
 ## Services
 
@@ -88,3 +89,5 @@ https://iot.gis.bgu.tum.de:3050/d/jDJ1li1Wz/indoor-ambient-monitoring-with-seeed
 
 * [Arduino_Sketch_Indoor.ino](Arduino_Sketch_Indoor/Arduino_Sketch_Indoor.ino)
 * [Node Red flow for Indoor Ambience Monitoring](./Node_flow_Indoor.json)
+* [Wiki guide for Seeeduino LoRaWAN board](http://wiki.seeedstudio.com/Seeeduino_LoRAWAN/)
+* [Adding Seeed boards to Arduiono IDE](http://wiki.seeedstudio.com/Seeed_Arduino_Boards/)
