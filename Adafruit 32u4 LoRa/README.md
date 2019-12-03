@@ -1,8 +1,18 @@
 ﻿# LoRaWAN Node - Adafruit 32u4 LoRa
 
-This tutorial is made to showcase the use of Adafruit 32u4 board to implement a LoRaWAN enabled sensor node. In the following case, a temperature and humidity sensor was used with the Adafruit 32u4 board to create this tutorial. 
+This tutorial is made to showcase the use of Adafruit 32u4 board to create a LoRaWAN enabled sensor node. In the following example, a temperature and humidity sensor was used with the Adafruit 32u4 board to create this tutorial. 
 
 ## Hardware
+
+To build this sensor node we have used following hardware components:
+
+- [Adafruit Feather 32u4 LoRa module](https://www.adafruit.com/product/3078)
+- [Grove - DHT-22 Temperature & Humidity Sensor](http://wiki.seeedstudio.com/Grove-Temperature_and_Humidity_Sensor_Pro/) 
+- [Breadboard](https://en.wikipedia.org/wiki/Breadboard#/media/File:400_points_breadboard.jpg)
+- [Battery](https://www.adafruit.com/product/353)
+- [Resistor: 4.7k to 10k Ohm](https://learn.sparkfun.com/tutorials/resistors/all)
+
+### Micro-controller
 
 The Adafruit Feather 32u4 LoRa module is operated by the 8bit ATmega32u4 microcontroller running at 8MHz. It has 32 KB flash memory (to store the program code) and 2 KB of RAM (to store variables, status information, and buffers). The operating voltage of the board is 3.3V (this is important when attaching sensors and other peripherals; they also must operate on 3.3V). The board offers 20 general purpose digital input/output pins (20 GPIOs) with 10 analog input pins (with 12bit analog digital converters (ADC)), one serial port (programmable Universal Asynchronous Receiver and Transmitter, UART), one I2C port, one SPI port, one USB port. The board comes with an embedded Lithium polymer battery management chip and status indicator led, which allows to directly connect a 3.7V LiPo rechargeable battery that will be automatically recharged when the board is powered over its USB connector. The Adafruit Feather 32u4 LoRa board is available in German shops from around 37 € to 45 €.
 
@@ -10,11 +20,13 @@ The LoRa transmitter and receiver is encapsulated within an RFM95 module from th
 
 ![[Feather 32u4 with RFM95 LoRa Radio-868 MHz-RadioFruit](https://www.adafruit.com/product/3078) from Adafruit. [Feather 32u4 LoRa tutorial with explanations, datasheets, and examples](https://learn.adafruit.com/adafruit-feather-32u4-radio-with-lora-radio-module/)](32u4board.jpg)
 
+### Sensor
+
 We have attached a DHT22 sensor to the microcontroller board, which measures air temperature and humidity. The minimal time interval between two measurements is 2 seconds. All data transfers between the DHT22 and the microcontroller use a single digital line. The sensor data pin is attached to a GPIO pin (here: Digital Pin 5) of the microcontroller. In addition, a so-called pull-up resistor of 4.7k to 10k Ohm must be connected between the data line and VCC (+3.3V). The [DHT22 datasheet](https://www.sparkfun.com/datasheets/Sensors/Temperature/DHT22.pdf,) provides more technical details about the DHT22 Sensor. A tutorial on how to use the [DHT22 sensor with Arduino microcontrollers](https://learn.adafruit.com/dht?view=all) is provided here. The sensor is available in German shops for around 4 € to 10 €.
 
 ![The Adafruit Feather 32u4 RFM95 LoRa with attached antenna (top), a 1000 mAh lithium polymer (LiPo) battery (bottom), and an attached DHT22 temperature / humidity sensor (white box on the left)](setup.jpg)
 
-Once all these connection were made, the board is connected with a computer using a USB cable. Further, steps of software part needs to be followed:
+Once all these connection are made, the board is connected with a computer using a USB cable. Further, steps of [software part](#Software) needs to be followed. But, before that we need to register a new device on the service that we are using.
 
 ## Services
 
@@ -31,13 +43,13 @@ The sketch given above connects the sensor node with The Things Network (TTN) us
 
 The sensor node has been programmed using the [Arduino IDE](https://www.arduino.cc/en/main/software). Please note, that in the Arduino framework a program is called a 'Sketch'. 
 
-After the sketch has successfully established a connection to The Things Network it reports the air temperature, humidity, and the voltage of a (possibly) attached LiPo battery every 5 minutes. All three values are being encoded in two byte integer values each (in most significant byte order) and then sent as a 6 bytes data packet to the respective TTN application using LoRaWAN port 7. Please note, that LoRaWAN messages can be addressed to ports 1-255 (port 0 is reserved); these ports are similar to port numbers 0-65535 when using the Internet TCP/IP protocol. Voltage and humidity values are always greater or equal to 0, but the temperature value can also become negative. Negative values are represented as a [two's complement](https://en.wikipedia.org/wiki/Two%27s_complement); this must be considered in the Payload Decoding Function used in The Things Network (see below).
+After the sketch has successfully established a connection to The Things Network it reports the air temperature, humidity, and the voltage of a (possibly) attached LiPo battery every 5 minutes. All three values are being encoded in two byte integer values each (in most significant byte order) and then sent as a 6 bytes data packet to the respective TTN application using LoRaWAN port 7. Please note, that LoRaWAN messages can be addressed to ports 1-255 (port 0 is reserved); these ports are similar to port numbers 0-65535 when using the Internet TCP/IP protocol. Voltage and humidity values are always greater or equal to 0, but the temperature value can also become negative. Negative values are represented as a [two's complement](https://en.wikipedia.org/wiki/Two%27s_complement); this must be considered in the Payload Decoding Function used in The Things Network (see [here](#TTN_Payload_Decoding)).
 
 In between two sensor readings the microcontroller is going into deep sleep mode to save battery power. With a 1000 mAh LiPo battery and the current version of the sketch the system can run for at least 5 months. (Further optimizations would be possible, for example, not switching on the LED on the microcontroller board during LoRa data transmissions.)
 
 The employed RFM95 LoRa module does not provide built-in support of the LoRaWAN protocol. Thus, it has to be implemented on the ATmega32u4 microcontroller. We use the [IBM LMIC (LoraMAC-in-C) library](https://github.com/matthijskooijman/arduino-lmic) for Arduino. Since the ATmega32u4 microcontroller only has 32 KB of flash memory and the LMIC library is taking most of it, there is only very limited code space left for the application dealing with the sensors (about 2 KB). Nevertheless, this is sufficient to query some sensors like in our example the DHT22. 
 
-Now download and run the [Arduino_Sketch_Adafruit32u4.ino](Arduino_Sketch_Adafruit32u4/Arduino_Sketch_Adafruit32u4.ino) file in the Arduino IDE. This code was created by merging the example code of both the sensors and the ttn-otaa example from the lmic library. Some required changes were made while merging the example codes. The user should change the network session key, app session key and device address in the code before compiling. These keys can be obtained from the TTN, SWM or other service providers.
+Now download and run the [Arduino_Sketch_Adafruit32u4.ino](Arduino_Sketch_Adafruit32u4/Arduino_Sketch_Adafruit32u4.ino) file in the Arduino IDE. This code was created by merging the example code of both the sensors and the ttn-otaa example from the lmic library. Some required changes were made while merging the example codes. The user should change the network session key, app session key and device address in the code before compiling. These keys can be obtained from the TTN account as shown in the [Services](#Services)section.
 
 ```
 // LoRaWAN NwkSKey, network session key
@@ -56,7 +68,7 @@ static const u4_t DEVADDR = 0x260XXXXX   ; // <-- Change this address for every 
 
 ### TTN Payload Decoding
 
-Everytime a data packet is received by a TTN application a dedicated Javascript function is being called (Payload Decoder Function). This function can be used to decode the received byte string and to create proper Javascript objects or values that can directly be read by humans when looking at the incoming data packet. This is also useful to format the data in a specific way that can then be forwarded to an external application (e.g. a sensor data platform like [MyDevices](https://mydevices.com/) or [Thingspeak](https://thingspeak.com/)). Such a forwarding can be configured in the TTN console in the "Integrations" tab. The Payload Decoder Function given below checks if a packet was received on LoRaWAN port 7 and then assumes that it consists of the 6 bytes encoded as described above. It creates the three Javascript objects 'temperature', 'humidity', and 'vbattery'. Each object has two fields: 'value' holds the value and 'uom' gives the unit of measure. The source code can simply be copied and pasted into the 'decoder' tab in the TTN console after having selected the application. Choose the option 'Custom' in the 'Payload Format' field. Note that when you also want to handle other sensor nodes sending packets on different LoRaWAN ports, then the Payload Decoder Function can be extended after the end of the  if (port==7) {...} statement by adding  else if (port==8) {...} else if (port==9) {...} etc. 
+Everytime a data packet is received by a TTN application a dedicated Javascript function is being called (Payload Decoder Function). This function can be used to decode the received byte string and to create proper Javascript objects or values that can directly be read by humans when looking at the incoming data packet. This is also useful to format the data in a specific way that can then be forwarded to an external application (e.g. a sensor data platform like [MyDevices](https://mydevices.com/) or [Thingspeak](https://thingspeak.com/)). Such a forwarding can be configured in the TTN console in the "Integrations" tab. [The Payload Decoder Function](./TTN_Payload_Decode.js) given here checks if a packet was received on LoRaWAN port 7 and then assumes that it consists of the 6 bytes encoded as described above. It creates the three Javascript objects 'temperature', 'humidity', and 'vbattery'. Each object has two fields: 'value' holds the value and 'uom' gives the unit of measure. The source code can simply be copied and pasted into the 'decoder' tab in the TTN console after having selected the application. Choose the option 'Custom' in the 'Payload Format' field. Note that when you also want to handle other sensor nodes sending packets on different LoRaWAN ports, then the Payload Decoder Function can be extended after the end of the  if (port==7) {...} statement by adding  else if (port==8) {...} else if (port==9) {...} etc. 
 
 ## References
 
@@ -69,13 +81,13 @@ Everytime a data packet is received by a TTN application a dedicated Javascript 
 * [Got Adafruit Feather 32u4 LoRa Radio to work and here is how - End Devices (Nodes) - The Things Network](https://www.thethingsnetwork.org/forum/t/got-adafruit-feather-32u4-lora-radio-to-work-and-here-is-how/6863/35)
 * [Adafruit Feather as LoRaWAN node | Wolfgang Klenk](https://wolfgangklenk.wordpress.com/2017/04/15/adafruit-feather-as-lorawan-node/)
 * [LMiC on Adafruit Lora Feather successfully sends message to TTN and then halts with "Packet queued" - End Devices (Nodes) - The Things Network](https://www.thethingsnetwork.org/forum/t/lmic-on-adafruit-lora-feather-successfully-sends-message-to-ttn-and-then-halts-with-packet-queued/3762/25)
-* [GitHub - marcuscbehrens/loralife](https://github.com/marcuscbehrens/loralife
+* [GitHub - marcuscbehrens/loralife](https://github.com/marcuscbehrens/loralife)
 * [GPS-Tracker - Stories - Labs](https://www.thethingsnetwork.org/labs/story/gps-tracker)
 
 **On battery saving / using the deep sleep mode**
 
-[Adafruit Feather 32u4 LoRa - long transmission time after deep sleep - End Devices (Nodes) - The Things Network](https://www.thethingsnetwork.org/forum/t/adafruit-feather-32u4-lora-long-transmission-time-after-deep-sleep/11678/7) and [this](https://www.thethingsnetwork.org/forum/t/adafruit-feather-32u4-lora-long-transmission-time-after-deep-sleep/11678/13)
-[Full Arduino Mini LoraWAN and 1.3uA Sleep Mode - End Devices (Nodes) - The Things Network](https://www.thethingsnetwork.org/forum/t/full-arduino-mini-lorawan-below-1ua-sleep-mode/8059/97)
-[Adding Method to Adjust hal_ticks Upon Waking Up from Sleep · Issue #109 · matthijskooijman/arduino-lmic](https://github.com/matthijskooijman/arduino-lmic/issues/109)
-[minilora-test/minilora-test.ino at cbe686826bd84fac8381de47b5f5b02dd47c2ca0 · tkerby/minilora-test](https://github.com/tkerby/minilora-test/blob/cbe686826bd84fac8381de47b5f5b02dd47c2ca0/minilora-test/minilora-test.ino#L190)
-[Arduino-LMIC library with low power mode - Mario Zwiers](https://mariozwiers.de/2018/04/04/arduino-lmic-library-with-low-power-mode/)
+* [Adafruit Feather 32u4 LoRa - long transmission time after deep sleep - End Devices (Nodes) - The Things Network](https://www.thethingsnetwork.org/forum/t/adafruit-feather-32u4-lora-long-transmission-time-after-deep-sleep/11678/7) and [this](https://www.thethingsnetwork.org/forum/t/adafruit-feather-32u4-lora-long-transmission-time-after-deep-sleep/11678/13)
+* [Full Arduino Mini LoraWAN and 1.3uA Sleep Mode - End Devices (Nodes) - The Things Network](https://www.thethingsnetwork.org/forum/t/full-arduino-mini-lorawan-below-1ua-sleep-mode/8059/97)
+* [Adding Method to Adjust hal_ticks Upon Waking Up from Sleep · Issue #109 · matthijskooijman/arduino-lmic](https://github.com/matthijskooijman/arduino-lmic/issues/109)
+* [minilora-test/minilora-test.ino at cbe686826bd84fac8381de47b5f5b02dd47c2ca0 · tkerby/minilora-test](https://github.com/tkerby/minilora-test/blob/cbe686826bd84fac8381de47b5f5b02dd47c2ca0/minilora-test/minilora-test.ino#L190)
+* [Arduino-LMIC library with low power mode - Mario Zwiers](https://mariozwiers.de/2018/04/04/arduino-lmic-library-with-low-power-mode/)
