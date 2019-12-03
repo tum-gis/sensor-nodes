@@ -1,6 +1,6 @@
 ﻿# LoRaWAN Node - Adafruit 32u4 LoRa
 
-This tutorial is made to showcase the use of Adafruit 32u4 board to create a LoRaWAN enabled sensor node. In the following example, a temperature and humidity sensor was used with the Adafruit 32u4 board to create this tutorial. 
+This tutorial is made to showcase the use of Adafruit 32u4 board to create a LoRaWAN enabled sensor node. In the following example, a temperature and humidity sensor was used with the Adafruit 32u4 board. 
 
 ## Hardware
 
@@ -18,13 +18,17 @@ The Adafruit Feather 32u4 LoRa module is operated by the 8bit ATmega32u4 microco
 
 The LoRa transmitter and receiver is encapsulated within an RFM95 module from the company HopeRF. This module uses the LoRa chip SX1276 from the company Semtech and is dedicated to the 868 MHz frequency band. The RFM95 module is connected via SPI interface to the microcontroller. Most of the required connections of the LoRa transceiver pins with the microcontroller are already built-in on the Adafruit Feather 32u4 LoRa board. However, Digital Pin 6 of the microcontroller must be connected to DIO1 of the LoRa transceiver module in addition using a simple wire. Since the module only implements the LoRa physical layer, the LoRaWAN protocol stack must be implemented in software on the microcontroller. We are using the Arduino library LMIC for that purpose (see below). The implemented LoRaWAN functionality is compatible with LoRaWAN Class A/C.
 
-![[Feather 32u4 with RFM95 LoRa Radio-868 MHz-RadioFruit](https://www.adafruit.com/product/3078) from Adafruit. [Feather 32u4 LoRa tutorial with explanations, datasheets, and examples](https://learn.adafruit.com/adafruit-feather-32u4-radio-with-lora-radio-module/)](32u4board.jpg)
+| ![32u4board.jpg](32u4board.jpg) | 
+|:--:| 
+| *[Feather 32u4 with RFM95 LoRa Radio-868 MHz-RadioFruit](https://www.adafruit.com/product/3078) from Adafruit. [Feather 32u4 LoRa tutorial with explanations, datasheets, and examples](https://learn.adafruit.com/adafruit-feather-32u4-radio-with-lora-radio-module/)* |
 
 ### Sensor
 
 We have attached a DHT22 sensor to the microcontroller board, which measures air temperature and humidity. The minimal time interval between two measurements is 2 seconds. All data transfers between the DHT22 and the microcontroller use a single digital line. The sensor data pin is attached to a GPIO pin (here: Digital Pin 5) of the microcontroller. In addition, a so-called pull-up resistor of 4.7k to 10k Ohm must be connected between the data line and VCC (+3.3V). The [DHT22 datasheet](https://www.sparkfun.com/datasheets/Sensors/Temperature/DHT22.pdf) provides more technical details about the DHT22 Sensor. A tutorial on how to use the [DHT22 sensor with Arduino microcontrollers](https://learn.adafruit.com/dht?view=all) is provided here. The sensor is available in German shops for around 4 € to 10 €.
 
-![The Adafruit Feather 32u4 RFM95 LoRa with attached antenna (top), a 1000 mAh lithium polymer (LiPo) battery (bottom), and an attached DHT22 temperature / humidity sensor (white box on the left)](setup.jpg)
+| ![setup.jpg](setup.jpg) | 
+|:--:| 
+| *The Adafruit Feather 32u4 RFM95 LoRa with attached antenna (top), a 1000 mAh lithium polymer (LiPo) battery (bottom), and an attached DHT22 temperature / humidity sensor (white box on the left)* |
 
 For more details on the wiring connections, follow [this tutorial](https://github.com/tum-gis/sensor-nodes/tree/master/FeatherM0LoRa%20in%20TFA%20Housing#dht-22-sensor-connections). Once all these connection are made, the board is connected with a computer using a USB cable. Further, steps of [software part](#Software) needs to be followed. But, before that we need to register a new device on the service that we are using.
 
@@ -69,6 +73,14 @@ static const u4_t DEVADDR = 0x260XXXXX   ; // <-- Change this address for every 
 ### TTN Payload Decoding
 
 Everytime a data packet is received by a TTN application a dedicated Javascript function is being called (Payload Decoder Function). This function can be used to decode the received byte string and to create proper Javascript objects or values that can directly be read by humans when looking at the incoming data packet. This is also useful to format the data in a specific way that can then be forwarded to an external application (e.g. a sensor data platform like [MyDevices](https://mydevices.com/) or [Thingspeak](https://thingspeak.com/)). Such a forwarding can be configured in the TTN console in the "Integrations" tab. [The Payload Decoder Function](./TTN_Payload_Decode.js) given here checks if a packet was received on LoRaWAN port 7 and then assumes that it consists of the 6 bytes encoded as described above. It creates the three Javascript objects 'temperature', 'humidity', and 'vbattery'. Each object has two fields: 'value' holds the value and 'uom' gives the unit of measure. The source code can simply be copied and pasted into the 'decoder' tab in the TTN console after having selected the application. Choose the option 'Custom' in the 'Payload Format' field. Note that when you also want to handle other sensor nodes sending packets on different LoRaWAN ports, then the Payload Decoder Function can be extended after the end of the  if (port==7) {...} statement by adding  else if (port==8) {...} else if (port==9) {...} etc. 
+
+### The Things Network - OGC SensorWeb Integration
+
+The presented Payload Decoder Function works also with the [TTN-OGC SWE Integration](https://github.com/52North/ttn-ogcswe-integration) for the [52° North Sensor Observation Service (SOS)](https://github.com/52North/SOS). This software component can be downloaded from [here](https://github.com/52North/ttn-ogcswe-integration). It connects a TTN application with a running transactional [Sensor Observation Service 2.0.0 (SOS)](https://www.opengeospatial.org/standards/sos). Data packets received from TTN are imported into the SOS. The SOS persistently stores sensor data from an arbitrary number of sensor nodes and can be queried for the most recent as well as for historic sensor data readings. The 52° North SOS comes with its own REST API and a nice web client allowing to browse the stored sensor data in a convenient way.
+
+We are running an instance of the 52° North SOS and the TTN-OGC SWE Integration. The web client for this LoRaWAN sensor node can be accessed [here](http://129.187.38.201:8080/ttn-sos-integration/static/client/helgoland/index.html#/diagram?ts=ttnOGC__7,ttnOGC__8,ttnOGC__6). Here is a screenshot showing the webclient:
+
+| ![webclient.jpg](webclient.jpg) | 
 
 ## References
 
