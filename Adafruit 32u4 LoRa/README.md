@@ -30,18 +30,7 @@ We have attached a DHT22 sensor to the microcontroller board, which measures air
 |:--:| 
 | *The Adafruit Feather 32u4 RFM95 LoRa with attached antenna (top), a 1000 mAh lithium polymer (LiPo) battery (bottom), and an attached DHT22 temperature / humidity sensor (white box on the left)* |
 
-For more details on the wiring connections, follow [this tutorial](https://github.com/tum-gis/sensor-nodes/tree/master/FeatherM0LoRa%20in%20TFA%20Housing#dht-22-sensor-connections). Once all these connection are made, the board is connected with a computer using a USB cable. Further, steps of [software part](#Software) needs to be followed. But, before that we need to register a new device on the service that we are using.
-
-## Services
-
-This node will be connected using the TheThingsNetwork service. 
-
-### Registration of the sensor node with The Things Network (TTN)
-The LoRaWAN protocol makes use of a number of different identifiers, addresses, keys, etc. These are required to unambiguously identify devices, applications, as well as to encrypt and decrypt messages. The names and meanings are [nicely explained on a dedicated TTN web page](https://www.thethingsnetwork.org/docs/lorawan/addressing.html).
-
-The sketch given above connects the sensor node with The Things Network (TTN) using the Activation-by-Personalisation (ABP) mode. In this mode, the required keys for data encryption and session management are created manually using the TTN console window and must be pasted into the source code of the sketch below. In order to get this running, you will need to [create a new device in the TTN console window](https://www.thethingsnetwork.org/docs/devices/registration.html). This assumes that you already have a TTN user account (which needs to be created otherwise). In the settings menu of the newly created device the ABP mode must be selected and the settings must be saved. Then copy the DevAddr, the NwkSKey, and the AppSKey from the TTN console web page of the newly registered device and paste them into the proper places in the sketch above. Please make sure that you choose for each of the three keys the correct byte ordering (MSB for all three keys). A detailed explanation of these steps is given [here](https://learn.adafruit.com/the-things-network-for-feather?view=all). Then the sketch can be compiled and uploaded to the Adafruit Feather 32u4 LoRa microcontroller.
-
-**Important hint**: everytime the sensor node is reset or being started again, make sure to reset the frame counter of the registered sensor in the TTN console web page of the registered device. The reason is that in LoRaWAN all transmitted data packets have a frame counter, which is incremented after each data frame being sent. This way a LoRaWAN application can avoid receiving and using the same packet again (replay attack). When TTN receives a data packet, it checks if the frame number is higher than the last one received before. If not, the received packet is considered to be old or a replay attack and is discarded. When the sensor node is reset or being started again, its frame counter is also reset to 0, hence, the TTN application assumes that all new packages are old, because their frame counter is lower than the last frame received (before the reset). A manual frame counter reset is only necessary when registering the node using ABP mode. In OTAA mode the frame counter is automatically reset in the sensor node and the TTN network server.
+For more details on the wiring connections, follow [this tutorial](https://github.com/tum-gis/sensor-nodes/tree/master/FeatherM0LoRa%20in%20TFA%20Housing#dht-22-sensor-connections). Once all these connection are made, the board is connected with a computer using a USB cable. Further, steps of [software part](#Software) needs to be followed. But, before that we need to [register a new device on the service](#Registration-of-the-sensor-node-with-The-Things-Network-(TTN)) that we are using.
 
 ## Software
 
@@ -70,6 +59,19 @@ static const u1_t PROGMEM APPSKEY[16] = {APPLICATION_SESSION_KEY_HERE_IN_MSB_FOR
 static const u4_t DEVADDR = 0x260XXXXX   ; // <-- Change this address for every node!
 ``` 
 
+## Services
+
+The services used for this sensor-node are: 
+* [TheThingsNetwork](#Registration-of-the-sensor-node-with-The-Things-Network-(TTN)) service for LoRaWAN network service.
+*  [The Things Network - OGC SensorWeb Integration](#The-Things-Network---OGC-SensorWeb-Integration) 
+
+### Registration of the sensor node with The Things Network (TTN)
+The LoRaWAN protocol makes use of a number of different identifiers, addresses, keys, etc. These are required to unambiguously identify devices, applications, as well as to encrypt and decrypt messages. The names and meanings are [nicely explained on a dedicated TTN web page](https://www.thethingsnetwork.org/docs/lorawan/addressing.html).
+
+The sketch given above connects the sensor node with The Things Network (TTN) using the Activation-by-Personalisation (ABP) mode. In this mode, the required keys for data encryption and session management are created manually using the TTN console window and must be pasted into the source code of the sketch below. In order to get this running, you will need to [create a new device in the TTN console window](https://www.thethingsnetwork.org/docs/devices/registration.html). This assumes that you already have a TTN user account (which needs to be created otherwise). In the settings menu of the newly created device the ABP mode must be selected and the settings must be saved. Then copy the DevAddr, the NwkSKey, and the AppSKey from the TTN console web page of the newly registered device and paste them into the proper places in the sketch above. Please make sure that you choose for each of the three keys the correct byte ordering (MSB for all three keys). A detailed explanation of these steps is given [here](https://learn.adafruit.com/the-things-network-for-feather?view=all). Then the sketch can be compiled and uploaded to the Adafruit Feather 32u4 LoRa microcontroller.
+
+**Important hint**: everytime the sensor node is reset or being started again, make sure to reset the frame counter of the registered sensor in the TTN console web page of the registered device. The reason is that in LoRaWAN all transmitted data packets have a frame counter, which is incremented after each data frame being sent. This way a LoRaWAN application can avoid receiving and using the same packet again (replay attack). When TTN receives a data packet, it checks if the frame number is higher than the last one received before. If not, the received packet is considered to be old or a replay attack and is discarded. When the sensor node is reset or being started again, its frame counter is also reset to 0, hence, the TTN application assumes that all new packages are old, because their frame counter is lower than the last frame received (before the reset). A manual frame counter reset is only necessary when registering the node using ABP mode. In OTAA mode the frame counter is automatically reset in the sensor node and the TTN network server.
+
 ### TTN Payload Decoding
 
 Everytime a data packet is received by a TTN application a dedicated Javascript function is being called (Payload Decoder Function). This function can be used to decode the received byte string and to create proper Javascript objects or values that can directly be read by humans when looking at the incoming data packet. This is also useful to format the data in a specific way that can then be forwarded to an external application (e.g. a sensor data platform like [MyDevices](https://mydevices.com/) or [Thingspeak](https://thingspeak.com/)). Such a forwarding can be configured in the TTN console in the "Integrations" tab. [The Payload Decoder Function](./TTN_Payload_Decode.js) given here checks if a packet was received on LoRaWAN port 7 and then assumes that it consists of the 6 bytes encoded as described above. It creates the three Javascript objects 'temperature', 'humidity', and 'vbattery'. Each object has two fields: 'value' holds the value and 'uom' gives the unit of measure. The source code can simply be copied and pasted into the 'decoder' tab in the TTN console after having selected the application. Choose the option 'Custom' in the 'Payload Format' field. Note that when you also want to handle other sensor nodes sending packets on different LoRaWAN ports, then the Payload Decoder Function can be extended after the end of the  if (port==7) {...} statement by adding  else if (port==8) {...} else if (port==9) {...} etc. 
@@ -80,7 +82,7 @@ The presented Payload Decoder Function works also with the [TTN-OGC SWE Integrat
 
 We are running an instance of the 52° North SOS and the TTN-OGC SWE Integration. The web client for this LoRaWAN sensor node can be accessed [here](http://129.187.38.201:8080/ttn-sos-integration/static/client/helgoland/index.html#/diagram?ts=ttnOGC__7,ttnOGC__8,ttnOGC__6). Here is a screenshot showing the webclient:
 
-| ![webclient.jpg](webclient.jpg) | 
+| ![webclient.jpg](webclient.png) | 
 
 ## References
 

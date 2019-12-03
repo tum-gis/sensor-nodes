@@ -41,7 +41,7 @@ The case was 3D printed using the [design files provided by Adafruit](https://le
 
 We have ordered the three parts from an online 3D printing service. The quality of the delivered parts was generally ok, but not good enough for snapping the three parts firmly together. It is not clear yet whether this is a problem of the design files or of the printing service. We used two rubber bands In order to fix the three parts together. 
 
-Once all these connection are made, the board is connected with a computer using a USB cable. Further, steps of [software part](#Software) needs to be followed. But, before that we need to register a new device on the service that we are using.
+Once all these connection are made, the board is connected with a computer using a USB cable. Further, steps of [software part](#Software) needs to be followed. But, before that we need to [register a new device on the service](#Registration-of-the-sensor-node-with-The-Things-Network-(TTN)) that we are using.
 
 ## Software
 
@@ -93,7 +93,7 @@ The presented Payload Decoder Function works also with the [TTN-OGC SWE Integrat
 
 We are running an instance of the 52° North SOS and the TTN-OGC SWE Integration. The web client for this LoRaWAN sensor node can be accessed [here](http://129.187.38.201:8080/ttn-sos-integration/static/client/helgoland/index.html#/diagram?ts=ttnOGC__30,ttnOGC__29,ttnOGC__28). Here is a screenshot showing the webclient:
 
-| ![webclient.jpg](webclient.jpg) | 
+| ![webclient.jpg](webclient.png) | 
 
 ### Sending a message to the Sensor Node (Downlink)
 
