@@ -30,7 +30,7 @@ We have attached a DHT22 sensor to the microcontroller board, which measures air
 |:--:| 
 | *The Adafruit Feather 32u4 RFM95 LoRa with attached antenna (top), a 1000 mAh lithium polymer (LiPo) battery (bottom), and an attached DHT22 temperature / humidity sensor (white box on the left)* |
 
-For more details on the wiring connections, follow [this tutorial](https://github.com/tum-gis/sensor-nodes/tree/master/FeatherM0LoRa%20in%20TFA%20Housing#dht-22-sensor-connections). Once all these connection are made, the board is connected with a computer using a USB cable. Further, steps of [software part](#Software) needs to be followed. But, before that we need to [register a new device on the service](#Registration-of-the-sensor-node-with-The-Things-Network-(TTN)) that we are using.
+For more details on the wiring connections, follow [this tutorial](https://github.com/tum-gis/sensor-nodes/tree/master/FeatherM0LoRa%20in%20TFA%20Housing#dht-22-sensor-connections). Once all these connection are made, the board is connected with a computer using a USB cable. Further, steps of [software part](#Software) needs to be followed. But, before that we need to [register a new device on the service](#registration-of-the-sensor-node-with-the-things-network-ttn) that we are using.
 
 ## Software
 
@@ -62,7 +62,7 @@ static const u4_t DEVADDR = 0x260XXXXX   ; // <-- Change this address for every 
 ## Services
 
 The services used for this sensor-node are: 
-* [TheThingsNetwork](#Registration-of-the-sensor-node-with-The-Things-Network-(TTN)) service for LoRaWAN network service.
+* [TheThingsNetwork](#registration-of-the-sensor-node-with-the-things-network-ttn) service for LoRaWAN network service.
 *  [The Things Network - OGC SensorWeb Integration](#The-Things-Network---OGC-SensorWeb-Integration) 
 
 ### Registration of the sensor node with The Things Network (TTN)
@@ -82,7 +82,7 @@ The presented Payload Decoder Function works also with the [TTN-OGC SWE Integrat
 
 We are running an instance of the 52° North SOS and the TTN-OGC SWE Integration. The web client for this LoRaWAN sensor node can be accessed [here](http://129.187.38.201:8080/ttn-sos-integration/static/client/helgoland/index.html#/diagram?ts=ttnOGC__7,ttnOGC__8,ttnOGC__6). Here is a screenshot showing the webclient:
 
-| ![webclient.jpg](webclient.png) | 
+![webclient.png](webclient.png) 
 
 ## References
 
