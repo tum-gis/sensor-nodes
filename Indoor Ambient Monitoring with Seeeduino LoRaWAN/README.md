@@ -2,13 +2,14 @@
 
 This sensor node is made to showcase a use-case of LoRaWAN for indoor ambience monitoring. For achieving this a multitude of sensors were used which can monitor the quality of the ambience. In this example we measure parameters such as temperature, humidity, air pressure, air quality, CO2, loudness, gas, PM2.5, and light. 
 
-![Hardware setup](hardware-setup.jpg)
+![Hardware setup](hardware-setup.jpg){:height="50%" width="50%"}
 
 ## Hardware
 
 To realize the objective, following components were used:
 
-- [Seeeduino LoRaWAN board V4.2](http://wiki.seeedstudio.com/Seeeduino_LoRAWAN/) - [Grove Base Shield Arduino V2](https://www.seeedstudio.com/Base-Shield-V2.html)
+- [Seeeduino LoRaWAN board V4.2](http://wiki.seeedstudio.com/Seeeduino_LoRAWAN/
+- [Grove Base Shield Arduino V2](https://www.seeedstudio.com/Base-Shield-V2.html)
 - [Grove - Air Quality Sensor](http://wiki.seeedstudio.com/Grove-Air_Quality_Sensor_v1.3/)
 - [Grove - Loudness Sensor](http://wiki.seeedstudio.com/Grove-Loudness_Sensor/)
 - [Grove - Digital Light Sensor](http://wiki.seeedstudio.com/Grove-Digital_Light_Sensor/)
@@ -29,7 +30,7 @@ First of all, the grove base shield was connected over the Seeeduino LoRaWAN boa
 
 Apart from this, there is no need of any other wiring in this case.
 
-![Hardware](hardware.jpg)
+![Hardware](hardware.jpg){:height="50%" width="50%"}
 
 Once all these connection were made, the board is connected with a computer using a USB cable. Further, steps of software part needs to be followed:
 
