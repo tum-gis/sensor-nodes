@@ -26,7 +26,7 @@ The LoRa transmitter and receiver is encapsulated within an RFM95 module from th
 
 We have attached a DHT22 sensor to the microcontroller board, which measures air temperature and humidity. The minimal time interval between two measurements is 2 seconds. All data transfers between the DHT22 and the microcontroller use a single digital line. The sensor data pin is attached to a GPIO pin (here: Digital Pin 5) of the microcontroller. In addition, a so-called pull-up resistor of 4.7k to 10k Ohm must be connected between the data line and VCC (+3.3V). The [DHT22 datasheet](https://www.sparkfun.com/datasheets/Sensors/Temperature/DHT22.pdf) provides more technical details about the DHT22 Sensor. A tutorial on how to use the [DHT22 sensor with Arduino microcontrollers](https://learn.adafruit.com/dht?view=all) is provided here. The sensor is available in German shops for around 4 € to 10 €.
 
-| ![setup.jpg](setup.jpg) | 
+| ![setup](setup.png) | 
 |:--:| 
 | *The Adafruit Feather 32u4 RFM95 LoRa with attached antenna (top), a 1000 mAh lithium polymer (LiPo) battery (bottom), and an attached DHT22 temperature / humidity sensor (white box on the left)* |
 

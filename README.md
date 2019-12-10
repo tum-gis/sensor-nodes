@@ -1,4 +1,4 @@
-# TUM-GIS Sensor nodes
+﻿# TUM-GIS Sensor nodes
 
 This repo contains Arduino sketches, documentation, and images of our
 sensor nodes.
@@ -10,7 +10,11 @@ sensor nodes.
 
 ## Sensor nodes
 
-- [Example node](./example-node)
+- [FeatherM0LoRa in TFA Housing](./FeatherM0LoRa in TFA Housing)
+- [Indoor Ambient Monitoring with Seeeduino LoRaWAN](./Indoor Ambient Monitoring with Seeeduino LoRaWAN)
+- [Solar powered Seeeduino](./Solar powered Seeeduino)
+- [Adafruit 32u4 LoRa](./Adafruit 32u4 LoRa)
+- [Adafruit 32u4 LoRa with Display](./Adafruit 32u4 LoRa with Display)
 
 ## How to a node
 

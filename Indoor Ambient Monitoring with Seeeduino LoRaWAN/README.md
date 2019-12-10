@@ -2,7 +2,7 @@
 
 This sensor node is made to showcase a use-case of LoRaWAN for indoor ambience monitoring. For achieving this a multitude of sensors were used which can monitor the quality of the ambience. In this example we measure parameters such as temperature, humidity, air pressure, air quality, CO2, loudness, gas, PM2.5, and light. 
 
-![Hardware setup](hardware-setup.jpg){:height="50%" width="50%"}
+![Hardware setup](hardware-setup.jpg)
 
 ## Hardware
 
@@ -30,7 +30,7 @@ First of all, the grove base shield was connected over the Seeeduino LoRaWAN boa
 
 Apart from this, there is no need of any other wiring in this case.
 
-![Hardware](hardware.jpg){:height="50%" width="50%"}
+![Hardware](hardware.jpg)
 
 Once all these connection were made, the board is connected with a computer using a USB cable. Further, steps of software part needs to be followed:
 

@@ -43,7 +43,7 @@ Apart from this, Feather pin 6 should be permanently wired with Feather pin io1.
 
 To ensure the durable connections, smaller jumper wires were used on the breadboard instead of longer connecting cables. Sensors and cables were also supported with an insulating duct tape. Final hardware setup looked as following:
 
-![Final hardware wiring](hardware.jpg)
+![Final hardware wiring](hardware.png)
 
 Once all these connection were made, the board is connected with a computer using a USB cable. Further, steps of software part needs to be followed:
 

@@ -27,7 +27,7 @@ MHZ19 mhz(&ss);
 #define IIC_ADDR  uint8_t(0x76)
 Seeed_BME680 bme680(IIC_ADDR);
 
-int loudness;
+int loudness,a;
 
 HM330X sensor;
 u8 buf[30];
@@ -60,7 +60,10 @@ err_t parse_result(u8 *data)
     {
          value = (u16)data[i*2]<<8|data[i*2+1];
          print_result(str[i-1],value);
-
+         if(i==6)
+           {   a=value;
+               SerialUSB.println(a);
+           }
     }
 }
 
@@ -298,7 +301,7 @@ void loop()
     lpp.addLuminosity(6, CO2);
     lpp.addAnalogInput(7, gas);
     lpp.addLuminosity(8, loudness);
-        
+    lpp.addLuminosity(9, a);   
     result = lora.transferPacket(lpp.getBuffer(), lpp.getSize(), 5);   // send the data packet (n byts) with a default timeout of 5 secs
 
     if(result)
