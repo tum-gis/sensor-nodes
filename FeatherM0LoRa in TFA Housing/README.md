@@ -21,7 +21,7 @@ Also, as the final hardware setup with antenna couldn’t completely fit into th
 
 ![Bottom view of Sensor node in TFA Housing](setup-bottom.jpg)
 
-### Example: Wiring setup
+### Wiring setup
 
 First of all, the Feather M0 LoRa board was prepared by soldering the board with the provided grid of pins. Then the board is connected with the sensors using a breadboard. The sensor connections were made using the connector cables as following:
 
