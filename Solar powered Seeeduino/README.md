@@ -1,14 +1,16 @@
 ﻿# Solar powered LoRa Sensor node
 
-This sensor node is made to showcase a use-case of LoRaWAN sensor node powered using a solar panel. For achieving this a Seeeduino LoRaWAN microcontroller was used along with a solar panel connected using a solar shield. To show a generic use-case we have used a temperature and humidity sensor in this case, but it can be easily replaced with some other sensor as well. The entire setup was carefully placed in the [ABS Waterproof case](https://www.aliexpress.com/item/32806344313.html) which is an easy to install water-proof and dust-proof case for an indoor or outdoor sensor installations. However, the case has no provision for the ventilation unlike the [TFA case](https://www.tfa-dostmann.de/en/produkt/protective-cover-for-outdoor-transmitter/) and so the readings obtained by the sensor may not accurately represent the outdoor weather conditions. In this example, we measure parameters such as temperature, humidity and battery voltage.
+This sensor node is made to showcase a use-case of LoRaWAN sensor node powered using a solar panel. For achieving this a Seeeduino LoRaWAN microcontroller was used along with a solar panel connected using a solar shield. To show a generic use-case we have used a temperature and humidity sensor in this case, but it can be easily replaced with some other sensor as well. The entire setup was carefully placed in the [ABS Waterproof case](https://www.aliexpress.com/item/32806344313.html) which is an easy to install water-proof and dust-proof case for an indoor or outdoor sensor installations. However, this case has no provision for the ventilation unlike the [TFA case](https://www.tfa-dostmann.de/en/produkt/protective-cover-for-outdoor-transmitter/) and so the readings obtained by the sensor may not accurately represent the outdoor weather conditions. In this example, we measure parameters such as temperature, humidity, and battery voltage.
 
-![Sensor node in ABS Waterproof case](setup.jpg)
+| ![Sensor node in ABS Waterproof case](setup .jpg) | 
+|:--:| 
+| *Sensor node in ABS Waterproof case* |
 
 ## Hardware
 
 To build this sensor node we have used following hardware components:
 
-- [Seeeduino LoRaWAN board V4.2](http://wiki.seeedstudio.com/Seeeduino_LoRAWAN/
+- [Seeeduino LoRaWAN board V4.2](http://wiki.seeedstudio.com/Seeeduino_LoRAWAN/)
 - [Grove - DHT-22 Temperature & Humidity Sensor](http://wiki.seeedstudio.com/Grove-Temperature_and_Humidity_Sensor_Pro/) 
 - [Solar charger shield](http://wiki.seeedstudio.com/Solar_Charger_Shield_V2.2/)
 - [1.5 W Solar panel](https://www.seeedstudio.com/1-5W-Solar-Panel-81X137.html)
@@ -16,27 +18,31 @@ To build this sensor node we have used following hardware components:
 - [ABS Waterproof case](https://www.aliexpress.com/item/32806344313.html)
 - [2000 mAH Battery](https://www.adafruit.com/product/2011)
 
-![Inside view of Sensor node](hardware.png)
-
-### Example: Wiring setup
+### Wiring setup
 
 First of all, the solar panel is connected with the SOLAR pin and a battery is connected with a BAT pin on the solar charger shield as shown in the figure below. A DHT-22 Sensor is connected to A2 pin on the Seeeduino board using a connector cable and then the solar charger shield prepared in the previous step is mounted on the board. 
 
-![Solar shield wiring](shield_wiring.jpg)
+| ![Solar shield wiring](shield_wiring.jpg) | 
+|:--:| 
+| *Solar shield connections with the solar panel and a battery* |
 
 Apart from this, to measure the voltage of Lipo Battery we need to connect the VBAT pin to Analog pin A0, so that we can read the data from A0 pin. To achieve this, we need to Short R7 using a 0ohm resistor as shown in the figure here.
 
-![Battery voltage measurement](short.jpg)
+| ![Battery voltage measurement](short.jpg) | 
+|:--:| 
+| *Short R7 using a 0 ohm resistor for battery voltage measurement* |
 
 Final hardware setup looked as following:
 
-![Final hardware wiring](hardware.jpg)
+| ![Final hardware wiring](hardware.png) | 
+|:--:| 
+| *Final hardware wiring setup* |
 
 Once all these connection were made, the board is connected with a computer using a USB cable. Further, steps of software part needs to be followed:
 
 ## Software
 
-o create this node, we use Arduino IDE for setting up the Seeeduino LoRaWAN device. First, install the [Seeeduino LoRaWAN](http://wiki.seeedstudio.com/Seeeduino_LoRAWAN/) board to your Arduino IDE and select the correct port. Then following libraries needs to be installed before compiling the code:
+To create this node, we use Arduino IDE for setting up the Seeeduino LoRaWAN device. First, install the [Seeeduino LoRaWAN](http://wiki.seeedstudio.com/Seeeduino_LoRAWAN/) board to your Arduino IDE and select the correct port. Then following libraries needs to be installed before compiling the code:
 
 - [Wire.h](https://github.com/esp8266/Arduino/tree/master/libraries/Wire) to communicate with I2C devices.
 - [DHT.h](https://github.com/Seeed-Studio/Grove_Temperature_And_Humidity_Sensor) for reading DHT-22 sensor.
