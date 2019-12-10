@@ -10,11 +10,11 @@ sensor nodes.
 
 ## Sensor nodes
 
-- [FeatherM0LoRa in TFA Housing](./FeatherM0LoRa in TFA Housing)
-- [Indoor Ambient Monitoring with Seeeduino LoRaWAN](./Indoor Ambient Monitoring with Seeeduino LoRaWAN)
-- [Solar powered Seeeduino](./Solar powered Seeeduino)
-- [Adafruit 32u4 LoRa](./Adafruit 32u4 LoRa)
-- [Adafruit 32u4 LoRa with Display](./Adafruit 32u4 LoRa with Display)
+- [FeatherM0LoRa in TFA Housing](./FeatherM0LoRa-in-TFA-Housing)
+- [Indoor Ambient Monitoring with Seeeduino LoRaWAN](./Indoor-Ambient-Monitoring-with-Seeeduino-LoRaWAN)
+- [Solar powered Seeeduino](./Solar-powered-Seeeduino)
+- [Adafruit 32u4 LoRa](./Adafruit-32u4-LoRa)
+- [Adafruit 32u4 LoRa with Display](./Adafruit-32u4-LoRa-with-Display)
 
 ## How to a node
 
