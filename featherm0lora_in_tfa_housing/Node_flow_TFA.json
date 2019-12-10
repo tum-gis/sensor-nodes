@@ -1,0 +1,300 @@
+[
+    {
+        "id": "f6f7a740.c6b338",
+        "type": "tab",
+        "label": "Device 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "fafe9ad3.9659e8",
+        "type": "switch",
+        "z": "f6f7a740.c6b338",
+        "name": "Separate",
+        "property": "key",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "temperature_1",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "humidity",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "analog_in_3",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "temperature_4",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "barometric",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "analog_in_6",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "analog_in_7",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 7,
+        "x": 220,
+        "y": 180,
+        "wires": [
+            [
+                "492a1844.49a228"
+            ],
+            [
+                "b5be1839.3121a8"
+            ],
+            [
+                "d7e35050.187eb"
+            ],
+            [
+                "c5363ad1.5d3418"
+            ],
+            [
+                "ee2891fa.0dbbe"
+            ],
+            [
+                "71354cb4.e6af04"
+            ],
+            [
+                "d48c0c97.4eb08"
+            ]
+        ]
+    },
+    {
+        "id": "ccb2fb81.aacd58",
+        "type": "split",
+        "z": "f6f7a740.c6b338",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "key",
+        "x": 90,
+        "y": 180,
+        "wires": [
+            [
+                "fafe9ad3.9659e8"
+            ]
+        ]
+    },
+    {
+        "id": "657fd8a7.01c5e8",
+        "type": "debug",
+        "z": "f6f7a740.c6b338",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 870,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b5be1839.3121a8",
+        "type": "function",
+        "z": "f6f7a740.c6b338",
+        "name": "Humidity",
+        "func": "var humValue = msg.payload.valueOf();\nvar newMessage =  { payload: {  \"result\": humValue, \"Datastream\": {\"@iot.id\": 106}} };\nnewMessage.headers = {\"Content-type\" : \"application/json\"}\nreturn newMessage;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 440,
+        "y": 200,
+        "wires": [
+            [
+                "dd5d521b.5c984"
+            ]
+        ]
+    },
+    {
+        "id": "dd5d521b.5c984",
+        "type": "http request",
+        "z": "f6f7a740.c6b338",
+        "name": "POST Observation",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "http://iot.gis.bgu.tum.de:8081/FROST-Server-gi3/v1.0/Observations",
+        "tls": "",
+        "proxy": "",
+        "authType": "basic",
+        "x": 690,
+        "y": 240,
+        "wires": [
+            [
+                "657fd8a7.01c5e8"
+            ]
+        ]
+    },
+    {
+        "id": "492a1844.49a228",
+        "type": "function",
+        "z": "f6f7a740.c6b338",
+        "name": "Temperature",
+        "func": "var tempValue = msg.payload.valueOf();\nvar newMessage =  { payload: {  \"result\": tempValue, \"Datastream\": {\"@iot.id\": 105}} };\nnewMessage.headers = {\"Content-type\" : \"application/json\"}\nreturn newMessage;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 160,
+        "wires": [
+            [
+                "dd5d521b.5c984"
+            ]
+        ]
+    },
+    {
+        "id": "739d03d0.606a6c",
+        "type": "debug",
+        "z": "f6f7a740.c6b338",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 490,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "cb8ef1e2.a85f6",
+        "type": "ttn uplink",
+        "z": "f6f7a740.c6b338",
+        "name": "TTN Input",
+        "app": "58ceff1f.8576a",
+        "dev_id": "tum-gis-device2",
+        "field": "",
+        "x": 80,
+        "y": 60,
+        "wires": [
+            [
+                "aae507e3.771c18"
+            ]
+        ]
+    },
+    {
+        "id": "aae507e3.771c18",
+        "type": "cayennelpp-decoder",
+        "z": "f6f7a740.c6b338",
+        "name": "",
+        "x": 260,
+        "y": 60,
+        "wires": [
+            [
+                "ccb2fb81.aacd58",
+                "739d03d0.606a6c"
+            ]
+        ]
+    },
+    {
+        "id": "d7e35050.187eb",
+        "type": "function",
+        "z": "f6f7a740.c6b338",
+        "name": "Battery Voltage",
+        "func": "var Batteryvolt = msg.payload.valueOf();\nvar newMessage =  { payload: {  \"result\": Batteryvolt, \"Datastream\": {\"@iot.id\": 107}} };\nnewMessage.headers = {\"Content-type\" : \"application/json\"}\nreturn newMessage;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 460,
+        "y": 240,
+        "wires": [
+            [
+                "dd5d521b.5c984"
+            ]
+        ]
+    },
+    {
+        "id": "c5363ad1.5d3418",
+        "type": "function",
+        "z": "f6f7a740.c6b338",
+        "name": "Temperature2",
+        "func": "var tempValue = msg.payload.valueOf();\nvar newMessage =  { payload: {  \"result\": tempValue, \"Datastream\": {\"@iot.id\": 108}} };\nnewMessage.headers = {\"Content-type\" : \"application/json\"}\nreturn newMessage;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 460,
+        "y": 280,
+        "wires": [
+            [
+                "dd5d521b.5c984"
+            ]
+        ]
+    },
+    {
+        "id": "ee2891fa.0dbbe",
+        "type": "function",
+        "z": "f6f7a740.c6b338",
+        "name": "Barometric Pressure",
+        "func": "var pressure = msg.payload.valueOf();\nvar newMessage =  { payload: {  \"result\": pressure, \"Datastream\": {\"@iot.id\": 109}} };\nnewMessage.headers = {\"Content-type\" : \"application/json\"}\nreturn newMessage;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 480,
+        "y": 320,
+        "wires": [
+            [
+                "dd5d521b.5c984"
+            ]
+        ]
+    },
+    {
+        "id": "71354cb4.e6af04",
+        "type": "function",
+        "z": "f6f7a740.c6b338",
+        "name": "Pressure atm",
+        "func": "var atm = msg.payload.valueOf();\nvar newMessage =  { payload: {  \"result\": atm, \"Datastream\": {\"@iot.id\": 110}} };\nnewMessage.headers = {\"Content-type\" : \"application/json\"}\nreturn newMessage;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 360,
+        "wires": [
+            [
+                "dd5d521b.5c984"
+            ]
+        ]
+    },
+    {
+        "id": "d48c0c97.4eb08",
+        "type": "function",
+        "z": "f6f7a740.c6b338",
+        "name": "Altitude",
+        "func": "var altitude = msg.payload.valueOf();\nvar newMessage =  { payload: {  \"result\": altitude, \"Datastream\": {\"@iot.id\": 111}} };\nnewMessage.headers = {\"Content-type\" : \"application/json\"}\nreturn newMessage;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 440,
+        "y": 400,
+        "wires": [
+            [
+                "dd5d521b.5c984"
+            ]
+        ]
+    },
+    {
+        "id": "58ceff1f.8576a",
+        "type": "ttn app",
+        "z": "",
+        "appId": "gis-tum-sensors",
+        "accessKey": "ttn-account-ACCESSKEY_HERE",
+        "discovery": "discovery.thethingsnetwork.org:1900"
+    }
+]
