@@ -8,7 +8,8 @@ This sensor node is made to showcase a use-case of LoRaWAN for indoor ambience m
 
 To realize the objective, following components were used:
 
-- [Seeeduino LoRaWAN board V4.2](http://wiki.seeedstudio.com/Seeeduino_LoRAWAN/) - [Grove Base Shield Arduino V2](https://www.seeedstudio.com/Base-Shield-V2.html)
+- [Seeeduino LoRaWAN board V4.2](http://wiki.seeedstudio.com/Seeeduino_LoRAWAN/
+- [Grove Base Shield Arduino V2](https://www.seeedstudio.com/Base-Shield-V2.html)
 - [Grove - Air Quality Sensor](http://wiki.seeedstudio.com/Grove-Air_Quality_Sensor_v1.3/)
 - [Grove - Loudness Sensor](http://wiki.seeedstudio.com/Grove-Loudness_Sensor/)
 - [Grove - Digital Light Sensor](http://wiki.seeedstudio.com/Grove-Digital_Light_Sensor/)
