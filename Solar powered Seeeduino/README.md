@@ -2,7 +2,7 @@
 
 This sensor node is made to showcase a use-case of LoRaWAN sensor node powered using a solar panel. For achieving this a Seeeduino LoRaWAN microcontroller was used along with a solar panel connected using a solar shield. To show a generic use-case we have used a temperature and humidity sensor in this case, but it can be easily replaced with some other sensor as well. The entire setup was carefully placed in the [ABS Waterproof case](https://www.aliexpress.com/item/32806344313.html) which is an easy to install water-proof and dust-proof case for an indoor or outdoor sensor installations. However, this case has no provision for the ventilation unlike the [TFA case](https://www.tfa-dostmann.de/en/produkt/protective-cover-for-outdoor-transmitter/) and so the readings obtained by the sensor may not accurately represent the outdoor weather conditions. In this example, we measure parameters such as temperature, humidity, and battery voltage.
 
-| ![Sensor node in ABS Waterproof case](setup .jpg) | 
+| ![Sensor node in ABS Waterproof case](setup.jpg) | 
 |:--:| 
 | *Sensor node in ABS Waterproof case* |
 
