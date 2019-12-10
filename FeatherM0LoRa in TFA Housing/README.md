@@ -2,7 +2,9 @@
 
 This sensor node is made to showcase a use-case of LoRaWAN technology for outdoor weather monitoring. For achieving this a Feather M0 LoRa module was used with temperature and pressure sensor. The entire setup was carefully placed in the [TFA Housing](https://www.tfa-dostmann.de/en/produkt/protective-cover-for-outdoor-transmitter/) which is an all-weather protective cover for outdoor transmitters. In this example we measure parameters such as temperature, humidity, altitude, and air pressure.
 
-![Sensor node in TFA Housing](setup.jpg)
+| ![Sensor node in TFA Housing](setup.jpg) | 
+|:--:| 
+| *Sensor node in TFA Housing* |
 
 ## Hardware
 
@@ -15,13 +17,17 @@ To build this sensor node we have used following hardware components:
 - [TFA Protective Cover](https://www.tfa-dostmann.de/en/produkt/protective-cover-for-outdoor-transmitter/)
 - [6600 mAH Battery](https://www.adafruit.com/product/353)
 
-![Inside view of Sensor node in TFA Housing](setup-insideview.jpg)
+| ![Inside view of Sensor node in TFA Housing](setup-insideview.jpg) | 
+|:--:| 
+| *Inside view of Sensor node in TFA Housing* |
 
 Also, as the final hardware setup with antenna couldn’t completely fit into the casing, a small hole was made at the bottom of the casing to allow the remaining portion of antenna to stay outside.
 
-![Bottom view of Sensor node in TFA Housing](setup-bottom.jpg)
+| ![Bottom view of Sensor node in TFA Housing](setup-bottom.jpg) | 
+|:--:| 
+| *Bottom view of Sensor node in TFA Housing* |
 
-### Wiring setup
+### Example: Wiring setup
 
 First of all, the Feather M0 LoRa board was prepared by soldering the board with the provided grid of pins. Then the board is connected with the sensors using a breadboard. The sensor connections were made using the connector cables as following:
 
@@ -31,7 +37,9 @@ First of all, the Feather M0 LoRa board was prepared by soldering the board with
 - Feather pin 12 to DHT22 pin 2
 - Resistor between DHT pin 1 and DHT pin 2
 
-![Wiring with DHT-22 Sensor](feather_wiring_hero.png)
+| ![Wiring with DHT-22 Sensor](feather_wiring_hero.png) | 
+|:--:| 
+| *Wiring with DHT-22 Sensor* |
 
 #### Grove-Barometer Sensor connections:
 - Feather SCL to Barometer Sensor pin 1 (yellow)  
@@ -43,7 +51,9 @@ Apart from this, Feather pin 6 should be permanently wired with Feather pin io1.
 
 To ensure the durable connections, smaller jumper wires were used on the breadboard instead of longer connecting cables. Sensors and cables were also supported with an insulating duct tape. Final hardware setup looked as following:
 
-![Final hardware wiring](hardware.png)
+| ![Final hardware wiring](hardware.png) | 
+|:--:| 
+| *Final hardware wiring* |
 
 Once all these connection were made, the board is connected with a computer using a USB cable. Further, steps of software part needs to be followed:
 
@@ -52,7 +62,7 @@ Once all these connection were made, the board is connected with a computer usin
 To create this node, we use Arduino IDE for setting up the Feather M0 LoRa module. First, install the [Feather M0 LoRa](https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/setup) board to your Arduino IDE and select the correct port. Then following libraries needs to be installed before compiling the code:
 
 - [lmic.h](https://github.com/matthijskooijman/arduino-lmic/archive/master.zip) for implementing LoRaWAN on Arduino hardware.
-- [hal/hal.h] bundled with lmic library.
+- hal/hal.h bundled with lmic library.
 - [Adafruit_SleepyDog.h](https://github.com/adafruit/Adafruit_SleepyDog) for controlling low power sleep mode. 
 - [Wire.h](https://github.com/esp8266/Arduino/tree/master/libraries/Wire) to communicate with I2C devices.
 - [BMP085.h](https://raw.githubusercontent.com/SeeedDocument/Grove-Barometer_Sensor/master/res/Barometer_Sensor.zip) for Barometer sensor.
