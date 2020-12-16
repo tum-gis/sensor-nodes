@@ -18,7 +18,7 @@ import sphinx_rtd_theme
 # -- Project information -----------------------------------------------------
 
 project = 'TUM-GIS Sensor Nodes'
-copyright = '2019, Chair of Geoinformatics, Technical University of Munich (TUM)'
+copyright = '2020, Chair of Geoinformatics, Technical University of Munich (TUM)'
 author = 'Chair of Geoinformatics, Technical University of Munich (TUM)'
 
 # The short X.Y version
