@@ -37,6 +37,7 @@ Contents
   seeeduino_lorawan/README
   seeeduino_lorawan_gps/README
   all_on_one_rpi_node/README
+  sodaq_one/README
 
 Indices and tables
 ++++++++++++++++++
@@ -45,5 +46,3 @@ Indices and tables
 * :ref:`search`
 
 .. * :ref:`modindex`
-
-
