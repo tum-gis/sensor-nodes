@@ -36,8 +36,7 @@ Contents
   pycom_lopy4/README
   seeeduino_lorawan/README
   seeeduino_lorawan_gps/README
-  sodaq_one/README
-  wemos_ttgo_t-beam/README
+  all_on_one_rpi_node/README
 
 Indices and tables
 ++++++++++++++++++
